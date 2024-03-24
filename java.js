@@ -223,14 +223,19 @@ function getLearnerData(course, ag, submissions) {
     const learnerSubmissions = submissions.filter( 
       (submissions) => submissions.learner_id === learner_Id
       );
-  //create first part of array-object
+  //create first part of array-object and set avg to 0
       const learnerDetails = {
         id: learnerId,
         avg: 0,
       };
   }
+  //create and set score and possibleScore to 0 
+  let totalScore = 0;
+  let totalPossibleScore=0;
+
 
   //function/loop to calculate total score and total posible score for the learner
+  
 
   //statement to calculate avaerage score
 
