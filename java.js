@@ -211,51 +211,69 @@ console.log(`  }`);
 console.log(` };`);
 ///////////////////////////////////////////////////////////////
 
-
-
-
-function getLearnerData(course, ag, submissions) {
-  // open arrary to fill in
+/////////////////////Main Task////////////////////////////////////
+function getLearnerData(course, assignmentGroup, submissions) {
+  //Open arrat to fill in
   const learnerData = [];
-  //function/loop to iterate over each learner
-  for (const learnerSubmissions of submissions){
-    const learnerId = learnerSubmissions.learner_id;
-    const learnerSubmissions = submissions.filter( 
-      (submissions) => submissions.learner_id === learner_Id
+
+  //Function/loop to iterate over each learner
+  for (const learnerSubmission of submissions) {
+    const learnerId = learnerSubmission.learner_id;
+    const learnerSubmissions = submissions.filter(
+      (submission) => submission.learner_id === learnerId
+    );
+    //Create first part of array-object and set avg to 0
+    const learnerDetails = {
+      id: learnerId,
+      avg: 0,
+    };
+    //Create and set score and possibleScore to 0
+    let totalScore = 0;
+    let totalPossibleScore = 0;
+
+    //Function/loop to calculate total score and total possible score for the learner
+    for (const submission of learnerSubmissions) {
+      const assignment = assignmentGroup.assignments.find(
+        (assign) => assign.id === submission.assignment_id
       );
-  //create first part of array-object and set avg to 0
-      const learnerDetails = {
-        id: learnerId,
-        avg: 0,
-      };
+
+      if (assignment) {
+        totalScore += submission.submission.score;
+        totalPossibleScore += assignment.points_possible;
+      }
+    }
+
+    //If-statement to calculate average score
+    if (totalPossibleScore !== 0) {
+      learnerDetails.avg = totalScore / totalPossibleScore;
+    }
+
+    //Loop to assign scores for each assignment
+    for (const assignment of assignmentGroup.assignments) {
+      const submission = learnerSubmissions.find(
+        (sub) => sub.assignment_id === assignment.id
+      );
+
+      if (submission) {
+        const assignmentScore = submission.submission.score;
+        learnerDetails[assignment.id] =
+          assignmentScore / assignment.points_possible;
+      }
+    }
+    //Push objects into array
+    learnerData.push(learnerDetails);
   }
-  //create and set score and possibleScore to 0 
-  let totalScore = 0;
-  let totalPossibleScore=0;
-
-
-  //function/loop to calculate total score and total posible score for the learner
-  
-
-  //statement to calculate avaerage score
-
-  //loop to assign scorecs for each assignment 
-
-
-
-  return result;
+  //Return array
+  return learnerData;
 }
 
-const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
-
-console.log(result);
-
-
-
-
-
-
-
+// Calling it outside the function
+const learnerData = getLearnerData(
+  CourseInfo,
+  AssignmentGroup,
+  LearnerSubmissions
+);
+console.log(learnerData);
 
 ///////////////////Answer//////////////////////////////
 //     const result = [                              //
