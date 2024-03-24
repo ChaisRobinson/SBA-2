@@ -213,7 +213,7 @@ console.log(` };`);
 
 /////////////////////Main Task////////////////////////////////////
 function getLearnerData(course, assignmentGroup, submissions) {
-  //Open arrat to fill in
+  //Open array to fill in
   const learnerData = [];
 
   //Function/loop to iterate over each learner
