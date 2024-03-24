@@ -218,6 +218,12 @@ function getLearnerData(course, ag, submissions) {
   // open arrary to fill in
   const learnerData = [];
   //function/loop to iterate over each learner
+  for (const learnerSubmissions of submissions){
+    const learnerId = learnerSubmissions.learner_id;
+    const learnerSubmissions = submissions.filter( 
+      (submissions) => submissions.learner_id === learner_Id
+      );
+  }
 
   //function/loop to calculate total score and total poosible score for the learner
 
